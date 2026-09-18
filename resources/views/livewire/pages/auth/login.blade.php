@@ -20,7 +20,8 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        // Ubah redirect default dari 'dashboard' menjadi 'admin.list'
+        $this->redirectIntended(default: route('admin.list', absolute: false), navigate: true);;
     }
 }; ?>
 

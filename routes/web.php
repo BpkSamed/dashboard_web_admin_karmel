@@ -1,20 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\KelolaData;
 
-Route::view('/', 'welcome');
+Route::redirect('/', '/admin');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('/admin', 'dashboard')->name('admin.list');
+    Route::view('/members', 'dashboard')->name('member.list');
+    Route::view('/non-members', 'dashboard')->name('non_member.list');
+    Route::view('/episcopi', 'dashboard')->name('episcopi.list');
+    Route::view('/manage-central-officials', 'dashboard')->name('manage.central_officials');
+    Route::view('/manage-commissions', 'dashboard')->name('manage.commissions');
+    Route::view('/manage-citoc', 'dashboard')->name('manage.citoc');
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-
-Route::get('kelola-data', KelolaData::class)
-    ->middleware(['auth', 'verified'])
-    ->name('kelola-data');
 
 require __DIR__.'/auth.php';
